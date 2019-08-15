@@ -15,7 +15,7 @@ export const getUsers = () => (dispatch: Dispatch<GetAction>) => {
       dispatch({type: REQUEST_SUCCESS, payload: { pending: false }})
       return dispatch({
         type: GET_USERS,
-        payload: res.data || {}
+        payload: res.data || [] 
       })
     })
     .catch(err => {

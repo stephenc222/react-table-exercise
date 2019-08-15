@@ -1,12 +1,12 @@
 import React from 'react'
 import {connect } from 'react-redux'
-import Table from './Table'
 import { getUsers } from '../actions/usersActions'
 
 export interface ContainerProps {
   api: { error?: string, pending: boolean},
   getUsers: () => void,
-  users: []
+  users: [],
+  children: (error: string, loading: boolean, data: any) => JSX.Element
 }
 
 export interface ContainerState {
@@ -18,19 +18,9 @@ class Container extends React.Component<ContainerProps, ContainerState> {
     this.props.getUsers()
   }
   render() {
-    const {api, users} = this.props
-    if (api.error) {
-      return 'Something went wrong, please refresh the page'
-    }
-    if (api.pending) {
-      return 'Loading...'
-    }
-    return (
-      <div>
-        <pre>{JSON.stringify(this.props, null, 2)}</pre>
-        {/* <Table tableData={users} /> */}
-      </div>
-    )
+    const {api, users } = this.props
+    const { error = '', pending: loading } = api
+    return this.props.children(error, loading, users)
   }
 }
 

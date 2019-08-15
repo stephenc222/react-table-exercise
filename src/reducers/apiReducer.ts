@@ -26,17 +26,17 @@ export const apiReducer = ( state: InitialState = initialState, action: ApiActio
     case REQUEST_SUCCESS:
       return {
         ...state,
-        api: action.payload
+        ...action.payload
       };
     case REQUEST_PENDING:
       return {
         ...state,
-        api: action.payload
+        ...action.payload
       };
     case REQUEST_ERRORS:
       return {
         ...state,
-        api: { message: action.payload }
+        ...{ message: action.payload }
       };
     default:
       return state;
