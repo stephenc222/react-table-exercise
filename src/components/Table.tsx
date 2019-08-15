@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import get from 'lodash.get'
+import './Table.css'
 
 // name of the key, and path to lookup - assuming consuming component knows the data structure it wants to render in a table
 interface KeyLookup {
@@ -11,6 +12,11 @@ export interface TableProps {
   keyOrder: KeyLookup[]
 }
 
+export interface ColumnProps {
+  value: string,
+  numColumns: number
+}
+
 export interface RowProps {
   data: object,
   rowIndex: number,
@@ -19,72 +25,64 @@ export interface RowProps {
 
 const pascalCase = (value: string) => value[0].toUpperCase() + value.substring(1, value.length)
 
+const Column = (props: ColumnProps) => {
+  const { value, numColumns } = props
+  return (
+    <div
+      className='column-container'
+      style={{
+        flexBasis: 1 / numColumns,
+      }}
+    >
+      {value}
+    </div>
+  )
+}
+
 const Row = (props: RowProps) => {
   const {
     keyOrder,
     rowIndex,
     data
   } = props
+  const numColumns = keyOrder.length
 
   // header row
   if (rowIndex === 0) {
     return (
       <div
-        style={{
-          borderBottom: '1px solid lightgrey',
-          display: 'flex',
-          flexDirection: 'row',
-          fontWeight: 'bold',
-          color: 'grey',
-          paddingLeft: 5
-        }}
+        className='header-row'
       >
         { 
           keyOrder.map(({keyName}) => 
-            <div
-              style={{
-                flexGrow: 1,
-                flexBasis: 1 / keyOrder.length,
-                marginTop: 5,
-                marginBottom: 5
-              }}
-            >
-              {pascalCase(keyName)}
-            </div>
-          )}
+            <Column value={pascalCase(keyName)} numColumns={numColumns}/>)
+        }
       </div>
     )
   }
   return (
     <div
+      className='content-row'
       style={{ 
-        display: 'flex',
-        flexDirection: 'row',
-        paddingLeft: 5,
         backgroundColor: rowIndex % 2 === 0 ? '#f1f1f1' : '',
       }}
     >
-      { keyOrder.map(({keyPath})=>
-          <div 
-            style={{
-              flexGrow: 1, 
-              flexBasis: 1 / keyOrder.length,
-              paddingTop: 5,
-              paddingBottom: 5
-            }}
-          >
-            {get(data, keyPath, '-')}
-          </div>
-        )}
+      { 
+        keyOrder.map(({keyPath}) => 
+          <Column value={get(data, keyPath, '-')} numColumns={numColumns}/>)
+      }
     </div>
   )
 }
 
 const Table = (props: TableProps) => {
   const { tableData, keyOrder } = props
+  if (!tableData) {
+    return <div>no table data</div>
+  }
   return (
-    <div style={{margin: 25, border: '1px solid grey'}}>
-      {tableData && tableData.map( (data, index) => <Row rowIndex={index} keyOrder={keyOrder} data={data}/> )}
+    <div className='table-container'>
+      {tableData.map( (data, index) => <Row rowIndex={index} keyOrder={keyOrder} data={data}/> )}
       
     </div>
   )

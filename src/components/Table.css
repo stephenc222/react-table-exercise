@@ -1,0 +1,25 @@
+.header-row {
+  border-bottom: 1px solid lightgrey;
+  display: flex;
+  flex-direction: row;
+  font-weight: bold;
+  color: grey;
+  padding-left: 5px;
+}
+
+.content-row {
+  display: flex;
+  flex-direction: row;
+  padding-left: 5px;
+}
+
+.table-container {
+  margin: 25px;
+  border: 1px solid grey;
+}
+
+.column-container {
+  flex-grow: 1;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
