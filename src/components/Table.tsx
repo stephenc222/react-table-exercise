@@ -17,25 +17,65 @@ export interface RowProps {
   keyOrder: KeyLookup[]
 }
 
+const pascalCase = (value: string) => value[0].toUpperCase() + value.substring(1, value.length)
+
 const Row = (props: RowProps) => {
   const {
     keyOrder,
     rowIndex,
     data
-
   } = props
 
   // header row
   if (rowIndex === 0) {
     return (
-      <div style={{border: '1px solid red', display: 'flex', flexDirection: 'row', textAlign: 'center' }}>
-        { keyOrder.map(({keyName}) => <div style={{border: '1px solid blue', flexGrow: 1, flexBasis: 1/4}}>{keyName}</div>)}
+      <div
+        style={{
+          borderBottom: '1px solid lightgrey',
+          display: 'flex',
+          flexDirection: 'row',
+          fontWeight: 'bold',
+          color: 'grey',
+          paddingLeft: 5
+        }}
+      >
+        { 
+          keyOrder.map(({keyName}) => 
+            <div
+              style={{
+                flexGrow: 1,
+                flexBasis: 1 / keyOrder.length,
+                marginTop: 5,
+                marginBottom: 5
+              }}
+            >
+              {pascalCase(keyName)}
+            </div>
+          )}
       </div>
     )
   }
   return (
-    <div style={{border: '1px solid red', display: 'flex', flexDirection: 'row'}}>
-      { keyOrder.map(({keyPath})=> <div style={{border: '1px solid black', flexGrow: 1, flexBasis: 1/4}}>{get(data, keyPath, '-')}</div>)}
+    <div
+      style={{ 
+        display: 'flex',
+        flexDirection: 'row',
+        paddingLeft: 5,
+        backgroundColor: rowIndex % 2 === 0 ? '#f1f1f1' : '',
+      }}
+    >
+      { keyOrder.map(({keyPath})=>
+          <div 
+            style={{
+              flexGrow: 1, 
+              flexBasis: 1 / keyOrder.length,
+              paddingTop: 5,
+              paddingBottom: 5
+            }}
+          >
+            {get(data, keyPath, '-')}
+          </div>
+        )}
     </div>
   )
 }
@@ -43,7 +83,7 @@ const Row = (props: RowProps) => {
 const Table = (props: TableProps) => {
   const { tableData, keyOrder } = props
   return (
-    <div>
+    <div style={{margin: 25, border: '1px solid grey'}}>
       {tableData && tableData.map( (data, index) => <Row rowIndex={index} keyOrder={keyOrder} data={data}/> )}
       
     </div>

@@ -25,7 +25,6 @@ const View = (props: ViewProps) => {
   return (
     <div>
       <Table keyOrder={KEY_ORDER} tableData={data.users}/>
-      
     </div>
   )
 }
