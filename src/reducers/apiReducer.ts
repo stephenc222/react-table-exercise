@@ -7,7 +7,7 @@ interface InitialState {
   pending: boolean
 }
 
-interface ApiAction {
+export interface ApiAction {
   type: string,
   payload: {
     error?: string
@@ -36,7 +36,7 @@ export const apiReducer = ( state: InitialState = initialState, action: ApiActio
     case REQUEST_ERRORS:
       return {
         ...state,
-        ...{ message: action.payload }
+        ...action.payload
       };
     default:
       return state;
