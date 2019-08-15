@@ -1,6 +1,6 @@
 import React from 'react'
-import {connect } from 'react-redux'
-import { getUsers } from '../actions/usersActions'
+import { connect } from 'react-redux'
+import { getUsers } from '../../actions/usersActions'
 
 export interface ContainerProps {
   api: { error?: string, pending: boolean},
