@@ -1,9 +1,6 @@
 // responsible for handling users request state - success state, pending state, and error state
 import { GET_USERS } from '../actions/types'
 
-interface InitialState {
-  users: User[]
-}
 export interface User {
   id: number,
   name: string,
@@ -28,11 +25,12 @@ export interface User {
   }
 }
 
+interface InitialState {
+  users: Array<User>
+}
 export interface UsersAction {
   type: string,
-  payload: {
-    users: User[]
-  }
+  payload?: Array<User>  
 }
 const initialState = {
   users: []
@@ -43,7 +41,7 @@ export const usersReducer = ( state: InitialState = initialState, action: UsersA
     case GET_USERS:
       return {
         ...state,
-        users: action.payload
+        users: (action.payload && action.payload) || []
       };
     default:
       return state;

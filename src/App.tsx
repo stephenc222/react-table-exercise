@@ -14,7 +14,7 @@ const App: React.FC = () => {
         }}
         </Container>
     </Provider>
-  );
+  )
 }
 
-export default App;
+export default App

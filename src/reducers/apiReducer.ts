@@ -9,7 +9,7 @@ interface InitialState {
 
 export interface ApiAction {
   type: string,
-  payload: {
+  payload?: {
     error?: string
     status?: number
     pending: boolean

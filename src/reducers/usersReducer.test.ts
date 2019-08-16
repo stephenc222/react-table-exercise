@@ -6,7 +6,7 @@ describe('usersReducer Tests', () => {
     expect(usersReducer(undefined, {} as UsersAction)).toEqual({ users: [] })
   })
   it('should successfully handle GET_USERS', () => {
-    expect(usersReducer(undefined, { type: GET_USERS, payload:{ users: [{ id: 1 } as User]}})).toEqual({ users: { users: [{id: 1}] }})
+    expect(usersReducer(undefined, { type: GET_USERS, payload: [{ id: 1 } as User]})).toEqual({ users: [{id: 1}]})
   })
 
 })

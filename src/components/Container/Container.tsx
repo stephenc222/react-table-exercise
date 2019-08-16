@@ -27,7 +27,7 @@ class Container extends React.Component<ContainerProps, ContainerState> {
 const mapStateToProps = (state: { api: any, users: any}) => ({
   api: state.api,
   users: state.users,
-});
+})
 
 const mapDispatchToProps = {
   getUsers
@@ -36,4 +36,4 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Container);
+)(Container)

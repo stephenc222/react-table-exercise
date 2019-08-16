@@ -2,7 +2,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import configureStore from 'redux-mock-store'
 import Container from './Container'
-import { Provider } from 'react-redux';
+import { Provider } from 'react-redux'
 
 const mockStore = configureStore()
 const store = mockStore({api: {}, users: []})
