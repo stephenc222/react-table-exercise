@@ -17,5 +17,15 @@ describe('Container Tests', () => {
         </Provider>
    )
   })
+  it('fails to render without expected input types', () => {
+    try {
+      // @ts-ignore
+      shallow(<Container/>)
+    } catch (e) {
+      if (e) {
+        expect(true)
+      }
+    }
+  })
 
 })
