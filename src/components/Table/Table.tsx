@@ -8,7 +8,7 @@ interface KeyLookup {
   keyPath: string
 }
 export interface TableProps {
-  tableData: any[],
+  tableData: RowProps[],
   keyOrder: KeyLookup[]
 }
 
