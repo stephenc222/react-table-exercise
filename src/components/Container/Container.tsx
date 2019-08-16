@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { Dispatch } from 'react'
 import { connect } from 'react-redux'
-import { getUsers } from '../../actions/usersActions'
+import { getData } from '../../util'
+import { AnyAction } from 'redux';
 
 export interface ContainerProps {
   api: { error?: string, pending: boolean},
-  getUsers: () => void,
-  users: [],
-  children: (error: string, loading: boolean, data: any) => JSX.Element
+  getData: () => void,
+  model: string,
+  children: (error: string, loading: boolean, data: any) => JSX.Element,
+  data: {[x: string]: any}
 }
 
 export interface ContainerState {
@@ -15,22 +17,28 @@ export interface ContainerState {
 
 class Container extends React.Component<ContainerProps, ContainerState> {
   componentDidMount() {
-    this.props.getUsers()
+    this.props.getData()
   }
   render() {
-    const {api, users } = this.props
+    const {api, data, model } = this.props
     const { error = '', pending: loading } = api
-    return this.props.children(error, loading, users)
+    return this.props.children(error, loading, data[model])
   }
 }
 
-const mapStateToProps = (state: { api: any, users: any}) => ({
-  api: state.api,
-  users: state.users,
-})
+const getDataModel = (state: any, model: string) => ({ [`${model}`]: state[`${model}`]  })
 
-const mapDispatchToProps = {
-  getUsers
+const mapStateToProps = (state: { api: { error?: string, pending: boolean}, users: any}, ownProps: { model: string}) => {
+  return {
+    api: state.api,
+    data: getDataModel(state, ownProps.model)[ownProps.model]
+  }
+}
+
+const mapDispatchToProps = (dispatch: Dispatch<AnyAction>, ownProps: { model: string } ) => {
+  return ({
+    getData: getData(ownProps.model, dispatch)
+  })
 }
 
 export default connect(

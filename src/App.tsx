@@ -8,8 +8,8 @@ import './App.css'
 const App: React.FC = () => {
   return (
     <Provider store={store}>
-      <Container>
-        {(error, loading, data) => {
+      <Container model='users' >
+        {(error: string, loading: boolean, data: any) => {
           return <View error={error} loading={loading} data={data} />
         }}
         </Container>

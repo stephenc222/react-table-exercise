@@ -8,7 +8,7 @@ export interface GetUsersAction {
   payload: object
 }
 
-export const getUsers = () => (dispatch: Dispatch<GetUsersAction>) => {
+export const getUsers = (dispatch: Dispatch<GetUsersAction>) => {
   dispatch({type: REQUEST_PENDING, payload: { pending: true}})
   return axios.get(API_URL)
     .then(res => {
