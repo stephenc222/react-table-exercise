@@ -54,8 +54,8 @@ const Row = (props: RowProps) => {
         className='header-row'
       >
         { 
-          keyOrder.map(({keyName}) => 
-            <Column value={pascalCase(keyName)} numColumns={numColumns}/>)
+          keyOrder.map(({keyName}, index) => 
+            <Column key={`c_${index}`} value={pascalCase(keyName)} numColumns={numColumns}/>)
         }
       </div>
     )
@@ -68,8 +68,8 @@ const Row = (props: RowProps) => {
       }}
     >
       { 
-        keyOrder.map(({keyPath}) => 
-          <Column value={get(data, keyPath, '-')} numColumns={numColumns}/>)
+        keyOrder.map(({keyPath}, index) => 
+          <Column key={`c_${index}`} value={get(data, keyPath, '-')} numColumns={numColumns}/>)
       }
     </div>
   )
@@ -82,7 +82,7 @@ const Table = (props: TableProps) => {
   }
   return (
     <div className='table-container'>
-      {tableData.map( (data, index) => <Row rowIndex={index} keyOrder={keyOrder} data={data}/> )}
+      {tableData.map( (data, index) => <Row key={`r_${index}`} rowIndex={index} keyOrder={keyOrder} data={data}/> )}
       
     </div>
   )
