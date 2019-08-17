@@ -20,13 +20,13 @@ class Container extends React.Component<ContainerProps, ContainerState> {
     this.props.getData()
   }
   render() {
-    const {api, data, model } = this.props
+    const {api, data, model, children } = this.props
     const { error = '', pending: loading } = api
-    return this.props.children(error, loading, data[model])
+    return children(error, loading, data[model])
   }
 }
 
-const getDataModel = (state: any, model: string) => ({ [`${model}`]: state[`${model}`]  })
+const getDataModel = (state: any, model: string) => ({ [model]: state[model]  })
 
 const mapStateToProps = (state: { api: { error?: string, pending: boolean}, users: any}, ownProps: { model: string}) => {
   return {
