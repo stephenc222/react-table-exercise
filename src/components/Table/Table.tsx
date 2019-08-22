@@ -47,15 +47,31 @@ const Row = (props: RowProps) => {
   // header row
   if (rowIndex === 0) {
     return (
-      <div className="header-row">
-        {keyOrder.map(({ keyName }, index) => (
-          <Column
-            key={`c_${index}`}
-            value={pascalCase(keyName)}
-            numColumns={numColumns}
-          />
-        ))}
-      </div>
+      <>
+        <div className="header-row">
+          {keyOrder.map(({ keyName }, index) => (
+            <Column
+              key={`c_${index}`}
+              value={pascalCase(keyName)}
+              numColumns={numColumns}
+            />
+          ))}
+        </div>
+        <div
+          className="content-row"
+          style={{
+            backgroundColor: rowIndex % 2 === 0 ? '#f1f1f1' : ''
+          }}
+        >
+          {keyOrder.map(({ keyPath }, index) => (
+            <Column
+              key={`c_${index}`}
+              value={get(data, keyPath, '-')}
+              numColumns={numColumns}
+            />
+          ))}
+        </div>
+      </>
     );
   }
   return (
